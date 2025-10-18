@@ -1,0 +1,380 @@
+import type { FieldDef, DataSourceStatic, Expression } from '../types/rules'
+
+export interface FormTemplate {
+    id: string
+    name: string
+    description: string
+    icon: string
+    fields: FieldDef[]
+    dataSources: DataSourceStatic[]
+    expressions: Expression[]
+    sections: string[]
+}
+
+export const FORM_TEMPLATES: FormTemplate[] = [
+    {
+        id: 'blank',
+        name: 'Blank Form',
+        description: 'Start from scratch',
+        icon: '📝',
+        fields: [],
+        dataSources: [],
+        expressions: [],
+        sections: ['Main Questions'],
+    },
+    {
+        id: 'moving_full',
+        name: 'Moving Service (Full)',
+        description: 'Complete moving request with all details',
+        icon: '🚚',
+        fields: [
+            {
+                id: 'customer_name',
+                label: 'Full Name',
+                type: 'string',
+                required: true,
+                widget: { type: 'builtIn', key: 'text' },
+                options: null,
+                showWhen: null,
+                _section: 'Contact Information',
+            },
+            {
+                id: 'customer_email',
+                label: 'Email Address',
+                type: 'string',
+                required: true,
+                validators: [{ kind: 'email' }],
+                widget: { type: 'builtIn', key: 'email' },
+                options: null,
+                showWhen: null,
+                _section: 'Contact Information',
+            },
+            {
+                id: 'customer_phone',
+                label: 'Phone Number',
+                type: 'string',
+                required: true,
+                validators: [{ kind: 'phone' }, { kind: 'regex', pattern: '^\\+?\\d{10,15}$' }],
+                widget: { type: 'builtIn', key: 'phone' },
+                options: null,
+                showWhen: null,
+                _section: 'Contact Information',
+            },
+            {
+                id: 'move_type',
+                label: 'Type of Move',
+                type: 'string',
+                required: true,
+                widget: { type: 'builtIn', key: 'select' },
+                options: { dataSourceId: 'ds_move_types' },
+                showWhen: null,
+                _section: 'Move Details',
+            },
+            {
+                id: 'move_date',
+                label: 'Preferred Moving Date',
+                type: 'string',
+                required: true,
+                widget: { type: 'builtIn', key: 'date' },
+                options: null,
+                showWhen: null,
+                _section: 'Move Details',
+            },
+            {
+                id: 'origin_address',
+                label: 'Current Address',
+                type: 'string',
+                required: true,
+                widget: { type: 'builtIn', key: 'text' },
+                options: null,
+                showWhen: null,
+                _section: 'Addresses',
+            },
+            {
+                id: 'destination_address',
+                label: 'New Address',
+                type: 'string',
+                required: true,
+                widget: { type: 'builtIn', key: 'text' },
+                options: null,
+                showWhen: null,
+                _section: 'Addresses',
+            },
+            {
+                id: 'property_size',
+                label: 'Property Size',
+                type: 'string',
+                required: false,
+                widget: { type: 'builtIn', key: 'select' },
+                options: { dataSourceId: 'ds_property_sizes' },
+                showWhen: null,
+                _section: 'Additional Details',
+            },
+            {
+                id: 'special_items',
+                label: 'Any special items? (piano, antiques, etc.)',
+                type: 'string',
+                required: false,
+                widget: { type: 'builtIn', key: 'textarea' },
+                options: null,
+                showWhen: null,
+                _section: 'Additional Details',
+            },
+        ] as any[],
+        dataSources: [
+            {
+                id: 'ds_move_types',
+                type: 'static',
+                config: {
+                    items: [
+                        { id: 'residential', name: 'Residential' },
+                        { id: 'commercial', name: 'Commercial' },
+                    ],
+                },
+            },
+            {
+                id: 'ds_property_sizes',
+                type: 'static',
+                config: {
+                    items: [
+                        { id: 'studio', name: 'Studio' },
+                        { id: '1bed', name: '1 Bedroom' },
+                        { id: '2bed', name: '2 Bedrooms' },
+                        { id: '3bed', name: '3+ Bedrooms' },
+                        { id: 'office', name: 'Office/Commercial' },
+                    ],
+                },
+            },
+        ],
+        expressions: [],
+        sections: ['Contact Information', 'Move Details', 'Addresses', 'Additional Details'],
+    },
+    {
+        id: 'moving_quick',
+        name: 'Moving Service (Quick)',
+        description: 'Essential info only - fast to fill',
+        icon: '📦',
+        fields: [
+            {
+                id: 'name',
+                label: 'Your Name',
+                type: 'string',
+                required: true,
+                widget: { type: 'builtIn', key: 'text' },
+                options: null,
+                showWhen: null,
+                _section: 'Basic Info',
+            },
+            {
+                id: 'phone',
+                label: 'Phone Number',
+                type: 'string',
+                required: true,
+                validators: [{ kind: 'phone' }],
+                widget: { type: 'builtIn', key: 'phone' },
+                options: null,
+                showWhen: null,
+                _section: 'Basic Info',
+            },
+            {
+                id: 'move_date',
+                label: 'When do you need to move?',
+                type: 'string',
+                required: true,
+                widget: { type: 'builtIn', key: 'date' },
+                options: null,
+                showWhen: null,
+                _section: 'Basic Info',
+            },
+            {
+                id: 'from_where',
+                label: 'Moving from (address)',
+                type: 'string',
+                required: true,
+                widget: { type: 'builtIn', key: 'text' },
+                options: null,
+                showWhen: null,
+                _section: 'Basic Info',
+            },
+            {
+                id: 'to_where',
+                label: 'Moving to (address)',
+                type: 'string',
+                required: true,
+                widget: { type: 'builtIn', key: 'text' },
+                options: null,
+                showWhen: null,
+                _section: 'Basic Info',
+            },
+        ] as any[],
+        dataSources: [],
+        expressions: [],
+        sections: ['Basic Info'],
+    },
+    {
+        id: 'customer_feedback',
+        name: 'Customer Feedback',
+        description: 'Collect reviews and ratings',
+        icon: '⭐',
+        fields: [
+            {
+                id: 'customer_name',
+                label: 'Your Name (optional)',
+                type: 'string',
+                required: false,
+                widget: { type: 'builtIn', key: 'text' },
+                options: null,
+                showWhen: null,
+                _section: 'About You',
+            },
+            {
+                id: 'service_date',
+                label: 'Date of Service',
+                type: 'string',
+                required: true,
+                widget: { type: 'builtIn', key: 'date' },
+                options: null,
+                showWhen: null,
+                _section: 'About You',
+            },
+            {
+                id: 'overall_rating',
+                label: 'Overall Experience',
+                type: 'string',
+                required: true,
+                widget: { type: 'builtIn', key: 'select' },
+                options: { dataSourceId: 'ds_ratings' },
+                showWhen: null,
+                _section: 'Your Feedback',
+            },
+            {
+                id: 'would_recommend',
+                label: 'Would you recommend us?',
+                type: 'string',
+                required: true,
+                widget: { type: 'builtIn', key: 'select' },
+                options: { dataSourceId: 'ds_yes_no' },
+                showWhen: null,
+                _section: 'Your Feedback',
+            },
+            {
+                id: 'comments',
+                label: 'What did you like? What could we improve?',
+                type: 'string',
+                required: false,
+                widget: { type: 'builtIn', key: 'textarea' },
+                options: null,
+                showWhen: null,
+                _section: 'Your Feedback',
+            },
+        ] as any[],
+        dataSources: [
+            {
+                id: 'ds_ratings',
+                type: 'static',
+                config: {
+                    items: [
+                        { id: '5', name: '⭐⭐⭐⭐⭐ Excellent' },
+                        { id: '4', name: '⭐⭐⭐⭐ Good' },
+                        { id: '3', name: '⭐⭐⭐ Average' },
+                        { id: '2', name: '⭐⭐ Below Average' },
+                        { id: '1', name: '⭐ Poor' },
+                    ],
+                },
+            },
+            {
+                id: 'ds_yes_no',
+                type: 'static',
+                config: {
+                    items: [
+                        { id: 'yes', name: 'Yes, definitely!' },
+                        { id: 'maybe', name: 'Maybe' },
+                        { id: 'no', name: 'No' },
+                    ],
+                },
+            },
+        ],
+        expressions: [],
+        sections: ['About You', 'Your Feedback'],
+    },
+    {
+        id: 'contact_form',
+        name: 'Contact Us',
+        description: 'Simple contact/inquiry form',
+        icon: '📬',
+        fields: [
+            {
+                id: 'name',
+                label: 'Your Name',
+                type: 'string',
+                required: true,
+                widget: { type: 'builtIn', key: 'text' },
+                options: null,
+                showWhen: null,
+                _section: 'Contact Info',
+            },
+            {
+                id: 'email',
+                label: 'Email Address',
+                type: 'string',
+                required: true,
+                validators: [{ kind: 'email' }],
+                widget: { type: 'builtIn', key: 'email' },
+                options: null,
+                showWhen: null,
+                _section: 'Contact Info',
+            },
+            {
+                id: 'subject',
+                label: 'What is this about?',
+                type: 'string',
+                required: true,
+                widget: { type: 'builtIn', key: 'select' },
+                options: { dataSourceId: 'ds_subjects' },
+                showWhen: null,
+                _section: 'Your Message',
+            },
+            {
+                id: 'message',
+                label: 'Your Message',
+                type: 'string',
+                required: true,
+                widget: { type: 'builtIn', key: 'textarea' },
+                options: null,
+                showWhen: null,
+                _section: 'Your Message',
+            },
+        ] as any[],
+        dataSources: [
+            {
+                id: 'ds_subjects',
+                type: 'static',
+                config: {
+                    items: [
+                        { id: 'quote', name: 'Request a Quote' },
+                        { id: 'question', name: 'General Question' },
+                        { id: 'support', name: 'Customer Support' },
+                        { id: 'other', name: 'Other' },
+                    ],
+                },
+            },
+        ],
+        expressions: [],
+        sections: ['Contact Info', 'Your Message'],
+    },
+]
+
+export function getTemplateById(id: string): FormTemplate | undefined {
+    return FORM_TEMPLATES.find(t => t.id === id)
+}
+
+export function getTemplatesList() {
+    return FORM_TEMPLATES.map(t => ({
+        id: t.id,
+        name: t.name,
+        description: t.description,
+        icon: t.icon,
+        fieldCount: t.fields.length,
+    }))
+}
+

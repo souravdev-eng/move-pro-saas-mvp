@@ -1,28 +1,27 @@
-import { Outlet, Link } from 'react-router-dom'
-import AppBar from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
-import Container from '@mui/material/Container'
+import { Outlet } from 'react-router-dom'
+import Box from '@mui/material/Box'
+import Sidebar from '../components/Sidebar/Sidebar'
+import TopHeader from '../components/TopHeader/TopHeader'
 
 export default function App() {
     return (
-        <>
-            <AppBar position="static" color="primary">
-                <Toolbar>
-                    <Typography variant="h6" sx={{ flexGrow: 1, textDecoration: 'none' }} component={Link} to="/">
-                        MovePro Rules
-                    </Typography>
-                    <Button color="inherit" component={Link} to="/rulesets/new">Create Form</Button>
-                    <Button color="inherit" component={Link} to="/rulesets">Forms</Button>
-                    <Button color="inherit" component={Link} to="/responses">Responses</Button>
-                </Toolbar>
-            </AppBar>
-            <Container sx={{ py: 3 }}>
+        <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default' }}>
+            <TopHeader />
+            <Sidebar />
+            <Box
+                component="main"
+                sx={{
+                    flexGrow: 1,
+                    p: 3,
+                    pt: 11, // Top header height (64px) + padding
+                    backgroundColor: 'background.default',
+                    minHeight: '100vh',
+                    overflowX: 'hidden',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                }}
+            >
                 <Outlet />
-            </Container>
-        </>
+            </Box>
+        </Box>
     )
 }
-
-

@@ -24,7 +24,7 @@ import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
 
 export default function RulesetList() {
-    const [tenantId, setTenantId] = useState('demo-tenant')
+    const [tenantId, setTenantId] = useState('')
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(10)
 
@@ -81,12 +81,12 @@ export default function RulesetList() {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell><strong>Name</strong></TableCell>
-                            <TableCell><strong>Scope</strong></TableCell>
-                            <TableCell><strong>Branch</strong></TableCell>
-                            <TableCell><strong>Status</strong></TableCell>
-                            <TableCell><strong>Created</strong></TableCell>
-                            <TableCell align="right"><strong>Actions</strong></TableCell>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Scope</TableCell>
+                            <TableCell>Branch</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell>Created</TableCell>
+                            <TableCell align="right">Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

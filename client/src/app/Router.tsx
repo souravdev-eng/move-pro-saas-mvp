@@ -6,8 +6,17 @@ import RulesetCreate from '../pages/RulesetCreate/RulesetCreate'
 import RulesetDetail from '../pages/RulesetDetail/RulesetDetail'
 import ResponseList from '../pages/ResponseList/ResponseList'
 import ResponseDetail from '../pages/ResponseDetail/ResponseDetail'
+import JobList from '../pages/JobList/JobList'
+import JobCreate from '../pages/JobCreate/JobCreate'
+import JobDetail from '../pages/JobDetail/JobDetail'
+
+import TenantOnboarding from '../pages/TenantOnboarding/TenantOnboarding'
 
 export const router = createBrowserRouter([
+    {
+        path: '/onboarding',
+        element: <TenantOnboarding />,
+    },
     {
         path: '/',
         element: <App />,
@@ -18,6 +27,9 @@ export const router = createBrowserRouter([
             { path: 'rulesets/:id', element: <RulesetDetail /> },
             { path: 'responses', element: <ResponseList /> },
             { path: 'responses/:id', element: <ResponseDetail /> },
+            { path: 'jobs', element: <JobList /> },
+            { path: 'jobs/new', element: <JobCreate /> },
+            { path: 'jobs/:id', element: <JobDetail /> },
         ],
     },
 ])

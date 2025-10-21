@@ -35,9 +35,26 @@ pnpm seed # or npm run seed
 
 ### Routes
 
+#### Rulesets
+
 - POST `/api/rulesets` – create a ruleset (draft)
 - GET `/api/rulesets` – list rulesets (filterable, paginated)
 - GET `/api/rulesets/:id` – fetch by id
+- DELETE `/api/rulesets/:id` – delete ruleset
+
+#### Jobs (Rules-Driven)
+
+- GET `/api/form/:branchId/:serviceType` – get compiled form schema for branch/serviceType
+- POST `/api/jobs` – create a job (validates against rules, applies defaults & compute)
+- GET `/api/jobs` – list jobs (filterable, paginated)
+- GET `/api/jobs/:id` – get job by id
+- POST `/api/jobs/validate` – validate job payload without creating
+
+#### Responses
+
+- POST `/api/responses` – create a response
+- GET `/api/responses` – list responses
+- GET `/api/responses/:id` – get response by id
 
 ### DTO Validation
 
@@ -86,4 +103,112 @@ Get by id:
 
 ```bash
 curl 'http://localhost:4000/api/rulesets/<RULESET_ID>'
+```
+
+---
+
+## Job Creation API
+
+### Get Form Schema
+
+Returns compiled form schema with validation rules and defaults:
+
+```bash
+curl 'http://localhost:4000/api/form/branch_001/residential-move'
+```
+
+Response:
+
+```json
+{
+  "fields": [...],
+  "layout": {...},
+  "validationSchemaVersion": "v1:ruleset_id",
+  "defaults": {
+    "move.type": "Residential",
+    "pricing.currency": "USD"
+  }
+}
+```
+
+### Create Job
+
+Creates a job after validating against rules:
+
+```bash
+curl -X POST http://localhost:4000/api/jobs \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "branchId": "branch_001",
+    "serviceType": "residential-move",
+    "payload": {
+      "customer.name": "John Doe",
+      "customer.email": "john@example.com",
+      "move.origin": "New York",
+      "move.destination": "Boston",
+      "move.moveDate": "2025-11-15"
+    },
+    "createdBy": "user_123"
+  }'
+```
+
+Response:
+
+```json
+{
+  "job": {
+    "_id": "...",
+    "branchId": "branch_001",
+    "serviceType": "residential-move",
+    "status": "created",
+    "payload": {...},
+    "customer": {...},
+    "move": {...},
+    "pricing": {...},
+    "meta": {
+      "validationSchemaVersion": "v1:ruleset_id",
+      "computedFields": ["pricing.estimatedCost"]
+    }
+  },
+  "validationSchemaVersion": "v1:ruleset_id",
+  "warnings": ["Applied default values for: pricing.currency"]
+}
+```
+
+### Validate Job (Dry-Run)
+
+Validates payload without creating:
+
+```bash
+curl -X POST http://localhost:4000/api/jobs/validate \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "branchId": "branch_001",
+    "serviceType": "residential-move",
+    "payload": {...}
+  }'
+```
+
+Response:
+
+```json
+{
+  "valid": true,
+  "errors": [],
+  "computed": {
+    // Payload with computed fields applied
+  }
+}
+```
+
+### List Jobs
+
+```bash
+curl 'http://localhost:4000/api/jobs?branchId=branch_001&status=created&page=1&limit=20'
+```
+
+### Get Job by ID
+
+```bash
+curl 'http://localhost:4000/api/jobs/<JOB_ID>'
 ```

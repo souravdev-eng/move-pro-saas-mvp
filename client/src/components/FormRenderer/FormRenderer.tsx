@@ -41,39 +41,45 @@ export default function FormRenderer({ definitions, initialValues, onSubmit }: F
         if (!hasError) onSubmit(formState)
     }
 
+    const sections = definitions.layout?.sections || []
+
     return (
         <Box>
-            {definitions.layout.sections.map((section, sIdx) => (
-                <Box key={section.id} sx={{ mb: 3 }}>
-                    {section.title ? (
-                        <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-                            {section.title}
-                        </Typography>
-                    ) : null}
-                    <Grid container spacing={2}>
-                        {section.rows.map((row, rIdx) => (
-                            row.cols.map((col, cIdx) => {
-                                const field = fieldsById[col.fieldId]
-                                if (!field) return null
-                                if (isHidden(field)) return null
-                                const items = getSelectItems(field)
-                                return (
-                                    <Grid item xs={12} sm={col.span || 12} key={`${rIdx}-${cIdx}`}>
-                                        <FieldInput
-                                            field={field}
-                                            value={(formState as any)[field.id]}
-                                            onChange={(v) => setFormState((s: any) => ({ ...s, [field.id]: v }))}
-                                            error={errors[field.id]}
-                                            items={items}
-                                        />
-                                    </Grid>
-                                )
-                            })
-                        ))}
-                    </Grid>
-                    {sIdx < definitions.layout.sections.length - 1 ? <Divider sx={{ mt: 3 }} /> : null}
-                </Box>
-            ))}
+            {sections.map((section, sIdx) => {
+                const rows = section.rows || []
+                return (
+                    <Box key={section.id || sIdx} sx={{ mb: 3 }}>
+                        {section.title ? (
+                            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                                {section.title}
+                            </Typography>
+                        ) : null}
+                        <Grid container spacing={2}>
+                            {rows.map((row, rIdx) => {
+                                const cols = row.cols || []
+                                return cols.map((col, cIdx) => {
+                                    const field = fieldsById[col.fieldId]
+                                    if (!field) return null
+                                    if (isHidden(field)) return null
+                                    const items = getSelectItems(field)
+                                    return (
+                                        <Grid item xs={12} sm={col.span || 12} key={`${rIdx}-${cIdx}`}>
+                                            <FieldInput
+                                                field={field}
+                                                value={(formState as any)[field.id]}
+                                                onChange={(v) => setFormState((s: any) => ({ ...s, [field.id]: v }))}
+                                                error={errors[field.id]}
+                                                items={items}
+                                            />
+                                        </Grid>
+                                    )
+                                })
+                            })}
+                        </Grid>
+                        {sIdx < sections.length - 1 ? <Divider sx={{ mt: 3 }} /> : null}
+                    </Box>
+                )
+            })}
             <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
                 <Button variant="contained" size="large" onClick={handleSubmit}>
                     Validate & Submit

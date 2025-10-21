@@ -19,7 +19,10 @@ export default function FieldInput({ field, value, onChange, error, items }: Fie
         helperText: error ?? '',
     }
 
-    switch (field.widget.key) {
+    // Get widget key - fallback to field.type if widget not defined
+    const widgetKey = field.widget?.key || field.type
+
+    switch (widgetKey) {
         case 'number':
             return (
                 <TextField

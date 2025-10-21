@@ -15,16 +15,17 @@ import Typography from '@mui/material/Typography'
 
 // Icons
 import DashboardIcon from '@mui/icons-material/Dashboard'
-import DescriptionIcon from '@mui/icons-material/Description'
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
 import InboxIcon from '@mui/icons-material/Inbox'
+import WorkIcon from '@mui/icons-material/Work'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import SettingsIcon from '@mui/icons-material/Settings'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
+import AdminIcon from '@mui/icons-material/AdminPanelSettings'
 
 const DRAWER_WIDTH_OPEN = 240
 const DRAWER_WIDTH_CLOSED = 60
@@ -45,9 +46,28 @@ const MENU_ITEMS: MenuItem[] = [
         path: '/',
     },
     {
-        id: 'forms',
-        label: 'Forms',
-        icon: <DescriptionIcon />,
+        id: 'jobs',
+        label: 'Jobs',
+        icon: <WorkIcon />,
+        children: [
+            {
+                id: 'jobs-create',
+                label: 'Create Job',
+                icon: <AddCircleOutlineIcon />,
+                path: '/jobs/new',
+            },
+            {
+                id: 'jobs-list',
+                label: 'All Jobs',
+                icon: <WorkIcon />,
+                path: '/jobs',
+            },
+        ],
+    },
+    {
+        id: 'admin',
+        label: 'Admin',
+        icon: <AdminIcon />,
         children: [
             {
                 id: 'forms-create',
@@ -58,20 +78,13 @@ const MENU_ITEMS: MenuItem[] = [
             {
                 id: 'forms-list',
                 label: 'All Forms',
-                icon: <FormatListBulletedIcon />,
+                icon: <DescriptionOutlinedIcon />,
                 path: '/rulesets',
             },
-        ],
-    },
-    {
-        id: 'responses',
-        label: 'Responses',
-        icon: <InboxIcon />,
-        children: [
             {
                 id: 'responses-list',
                 label: 'All Responses',
-                icon: <FormatListBulletedIcon />,
+                icon: <InboxIcon />,
                 path: '/responses',
             },
         ],
@@ -95,7 +108,7 @@ const BOTTOM_MENU: MenuItem[] = [
 
 export default function Sidebar() {
     const [open, setOpen] = useState(true)
-    const [expandedItems, setExpandedItems] = useState<string[]>(['forms', 'responses'])
+    const [expandedItems, setExpandedItems] = useState<string[]>(['jobs', 'admin'])
     const location = useLocation()
 
     function toggleDrawer() {

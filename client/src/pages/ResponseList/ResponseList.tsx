@@ -28,7 +28,7 @@ export default function ResponseList() {
     const rulesetIdParam = searchParams.get('rulesetId') || ''
 
     const [rulesetId, setRulesetId] = useState(rulesetIdParam)
-    const [tenantId, setTenantId] = useState('demo-tenant')
+    const [tenantId, setTenantId] = useState('')
     const [status, setStatus] = useState<string>('')
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(20)
@@ -99,11 +99,11 @@ export default function ResponseList() {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell><strong>Submitted</strong></TableCell>
-                            <TableCell><strong>Ruleset ID</strong></TableCell>
-                            <TableCell><strong>Submitted By</strong></TableCell>
-                            <TableCell><strong>Status</strong></TableCell>
-                            <TableCell align="right"><strong>Actions</strong></TableCell>
+                            <TableCell>Submitted</TableCell>
+                            <TableCell>Ruleset ID</TableCell>
+                            <TableCell>Submitted By</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell align="right">Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

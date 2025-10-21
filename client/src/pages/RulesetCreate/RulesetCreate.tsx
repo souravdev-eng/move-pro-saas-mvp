@@ -43,7 +43,7 @@ export default function RulesetCreate() {
   // Step 1: Basic Info
   const [name, setName] = useState('My Form')
   const [notes, setNotes] = useState('')
-  const [tenantId, setTenantId] = useState('demo-tenant')
+  const [tenantId, setTenantId] = useState('')
   const [scope, setScope] = useState<Scope>('global')
   const [branchId, setBranchId] = useState('')
 

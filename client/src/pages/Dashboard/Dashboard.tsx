@@ -11,6 +11,7 @@ import DescriptionIcon from '@mui/icons-material/Description'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import InboxIcon from '@mui/icons-material/Inbox'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp'
+import WorkIcon from '@mui/icons-material/Work'
 
 export default function Dashboard() {
     return (
@@ -28,20 +29,20 @@ export default function Dashboard() {
                         <Card
                             sx={{
                                 height: '100%',
-                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
                                 transition: 'transform 0.2s',
                                 '&:hover': { transform: 'translateY(-4px)' },
                             }}
                         >
-                            <CardActionArea component={RouterLink} to="/rulesets/new" sx={{ height: '100%' }}>
+                            <CardActionArea component={RouterLink} to="/jobs/new" sx={{ height: '100%' }}>
                                 <CardContent>
                                     <Stack spacing={2} alignItems="center" sx={{ py: 2 }}>
                                         <AddCircleOutlineIcon sx={{ fontSize: 48, color: 'white' }} />
                                         <Typography variant="h6" sx={{ color: 'white', fontWeight: 600 }}>
-                                            Create Form
+                                            Create Job
                                         </Typography>
                                         <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)', textAlign: 'center' }}>
-                                            Build a new form with our visual builder
+                                            Submit a new job with dynamic forms
                                         </Typography>
                                     </Stack>
                                 </CardContent>
@@ -53,7 +54,32 @@ export default function Dashboard() {
                         <Card
                             sx={{
                                 height: '100%',
-                                background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                transition: 'transform 0.2s',
+                                '&:hover': { transform: 'translateY(-4px)' },
+                            }}
+                        >
+                            <CardActionArea component={RouterLink} to="/jobs" sx={{ height: '100%' }}>
+                                <CardContent>
+                                    <Stack spacing={2} alignItems="center" sx={{ py: 2 }}>
+                                        <WorkIcon sx={{ fontSize: 48, color: 'white' }} />
+                                        <Typography variant="h6" sx={{ color: 'white', fontWeight: 600 }}>
+                                            All Jobs
+                                        </Typography>
+                                        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)', textAlign: 'center' }}>
+                                            View and manage job submissions
+                                        </Typography>
+                                    </Stack>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+                    </Grid>
+
+                    <Grid item xs={12} sm={6} md={3}>
+                        <Card
+                            sx={{
+                                height: '100%',
+                                background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
                                 transition: 'transform 0.2s',
                                 '&:hover': { transform: 'translateY(-4px)' },
                             }}
@@ -99,28 +125,6 @@ export default function Dashboard() {
                         </Card>
                     </Grid>
 
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card
-                            sx={{
-                                height: '100%',
-                                background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-                                transition: 'transform 0.2s',
-                                '&:hover': { transform: 'translateY(-4px)' },
-                            }}
-                        >
-                            <CardContent>
-                                <Stack spacing={2} alignItems="center" sx={{ py: 2 }}>
-                                    <TrendingUpIcon sx={{ fontSize: 48, color: 'white' }} />
-                                    <Typography variant="h6" sx={{ color: 'white', fontWeight: 600 }}>
-                                        Analytics
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)', textAlign: 'center' }}>
-                                        Coming soon
-                                    </Typography>
-                                </Stack>
-                            </CardContent>
-                        </Card>
-                    </Grid>
                 </Grid>
 
                 <Box sx={{ mt: 6 }}>

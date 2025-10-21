@@ -108,6 +108,14 @@ export const theme = createTheme({
             boxShadow: '0 1px 4px rgba(0,0,0,0.2)',
           },
         },
+        outlined: {
+          borderColor: '#495057',
+          color: '#d4d5d9',
+          '&:hover': {
+            borderColor: '#6c757d',
+            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+          },
+        },
       },
     },
     MuiButtonBase: {
@@ -166,9 +174,29 @@ export const theme = createTheme({
     MuiIconButton: {
       styleOverrides: {
         root: {
+          color: '#d4d5d9',
           transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
           '&:hover': {
             backgroundColor: 'rgba(255, 255, 255, 0.08)',
+          },
+        },
+      },
+    },
+    MuiToggleButton: {
+      styleOverrides: {
+        root: {
+          color: '#9fadbc',
+          borderColor: '#495057',
+          '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+          },
+          '&.Mui-selected': {
+            color: '#4c9aff',
+            backgroundColor: 'rgba(76, 154, 255, 0.12)',
+            borderColor: '#4c9aff',
+            '&:hover': {
+              backgroundColor: 'rgba(76, 154, 255, 0.16)',
+            },
           },
         },
       },
@@ -191,6 +219,18 @@ export const theme = createTheme({
         },
       },
     },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          borderColor: '#383c44',
+          color: '#d4d5d9',
+        },
+        head: {
+          color: '#d4d5d9',
+          fontWeight: 600,
+        },
+      },
+    },
     MuiListItemButton: {
       defaultProps: {
         disableRipple: false,
@@ -208,6 +248,60 @@ export const theme = createTheme({
           '& .MuiTouchRipple-root': {
             color: 'rgba(76, 154, 255, 0.3)',
           },
+        },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          color: '#9fadbc',
+          '&.Mui-selected': {
+            color: '#4c9aff',
+          },
+        },
+      },
+    },
+    MuiStepLabel: {
+      styleOverrides: {
+        label: {
+          color: '#9fadbc',
+          '&.Mui-active': {
+            color: '#d4d5d9',
+          },
+          '&.Mui-completed': {
+            color: '#9fadbc',
+          },
+        },
+      },
+    },
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          color: '#d4d5d9',
+        },
+      },
+    },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          color: '#9fadbc',
+          '&.Mui-focused': {
+            color: '#4c9aff',
+          },
+        },
+      },
+    },
+    MuiFormControlLabel: {
+      styleOverrides: {
+        label: {
+          color: '#d4d5d9',
+        },
+      },
+    },
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          color: '#d4d5d9',
         },
       },
     },
